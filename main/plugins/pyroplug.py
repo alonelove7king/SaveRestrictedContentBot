@@ -107,28 +107,28 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i):
                     progress=progress_for_pyrogram,
                     progress_args=(
                         client,
-                        '**UPLOADING:**\n',
+                                                '📤در حال آپلود...\n',
                         edit,
                         time.time()
                     )
                 )
             await edit.delete()
         except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
-            await client.edit_message_text(sender, edit_id, "Have you joined the channel?")
+            await client.edit_message_text(sender, edit_id, "⚠️ در کانال عضو شده اید؟")
             return 
         except Exception as e:
-            await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`')
+            await client.edit_message_text(sender, edit_id, f'🅾️ خطا هنگام ذخیره فایل: \n`{msg_link}`')
             return 
     else:
-        edit = await client.edit_message_text(sender, edit_id, "Cloning.")
+        edit = await client.edit_message_text(sender, edit_id, "📑 درحال کپی...")
         chat =  msg_link.split("/")[-2]
         try:
             await client.copy_message(int(sender), chat, msg_id)
         except Exception as e:
             print(e)
-            return await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`')
+            return await client.edit_message_text(sender, edit_id, f'🅾️ خطا هنگام ذخیره فایل: \n`{msg_link}`')
         await edit.delete()
         
 async def get_bulk_msg(userbot, client, sender, msg_link, i):
-    x = await client.send_message(sender, "Processing!")
+    x = await client.send_message(sender, "💠 عملیات در حال انجام است 💠")
     await get_msg(userbot, client, sender, x.message_id, msg_link, i) 
