@@ -15,7 +15,7 @@ async def sett(event):
     msg = await button.get_reply_message() 
     await event.delete()
     async with Drone.conversation(event.chat_id) as conv: 
-        xx = await conv.send_message("Send me any image for thumbnail as a `reply` to this message.")
+        xx = await conv.send_message("🏞 عکس خود را برای تنظیم تامبنیل ارسال کنید 🌄")
         x = await conv.get_reply()
         if not x.media:
             xx.edit("No media found.")
@@ -23,27 +23,27 @@ async def sett(event):
         if not 'png' in mime:
             if not 'jpg' in mime:
                 if not 'jpeg' in mime:
-                    return await xx.edit("No image found.")
+                    return await xx.edit("❓ فرمت پشتیبانی نشده ❓")
         await xx.delete()
-        t = await event.client.send_message(event.chat_id, 'Trying.')
+        t = await event.client.send_message(event.chat_id, '♻️ درحال تنظیم ♻️')
         path = await event.client.download_media(x.media)
         if os.path.exists(f'{event.sender_id}.jpg'):
             os.remove(f'{event.sender_id}.jpg')
         os.rename(path, f'./{event.sender_id}.jpg')
-        await t.edit("Temporary thumbnail saved!")
+        await t.edit("✅ تامبنیل با موفقیت تنظیم شد ✅")
         
 @Drone.on(events.callbackquery.CallbackQuery(data="rem"))
 async def remt(event):  
     Drone = event.client            
-    await event.edit('Trying.')
+    await event.edit('♻️ درحال انجام ♻️')
     try:
         os.remove(f'{event.sender_id}.jpg')
-        await event.edit('Removed!')
+        await event.edit('🚫 تامبنیل حذف شد 🚫')
     except Exception:
-        await event.edit("No thumbnail saved.")                        
+        await event.edit("🚫 تامبنیل ذخیره نشد 🚫")                        
   
 @Drone.on(events.NewMessage(incoming=True, pattern=f"{S}"))
 async def start(event):
-    text = "Send me Link of any message to clone it here, For private channel message, send invite link first.\n\n**SUPPORT:** @TeamDrone"
+    text = "🔰 لینک پیام را ارسال کنید تا ربات فایل مورد نظر را از کانال پرایوت دانلود و برای شما ارسال کند\n\n🆔 @King_Network7"
     await start_srb(event, text)
     
