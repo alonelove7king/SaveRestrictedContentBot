@@ -25,16 +25,16 @@ async def check(userbot, client, link):
             await userbot.get_messages(chat, msg_id)
             return True, None
         except ValueError:
-            return False, "**Invalid Link!**"
+            return False, "❗️ لینک نامعتبر است ❗️"
         except Exception:
-            return False, "Have you joined the channel?"
+            return False, "⚠️ در کانال عضو شده اید؟"
     else:
         try:
             chat = str(link.split("/")[-2])
             await client.get_messages(chat, msg_id)
             return True, None
         except Exception:
-            return False, "Maybe bot is banned from the chat, or your link is invalid!"
+            return False, "❗️ ربات در کانال مسدود شده است یا لینک نامعتبر است ❗️"
             
 async def get_msg(userbot, client, sender, edit_id, msg_link, i):
     edit = ""
@@ -46,28 +46,28 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i):
             msg = await userbot.get_messages(chat, msg_id)
             if msg.media:
                 if 'web_page' in msg.media:
-                    edit = await client.edit_message_text(sender, edit_id, "Cloning.")
+                    edit = await client.edit_message_text(sender, edit_id, "📑 درحال کپی...")
                     await client.send_message(sender, msg.text.markdown)
                     await edit.delete()
                     return
             if not msg.media:
                 if msg.text:
-                    edit = await client.edit_message_text(sender, edit_id, "Cloning.")
+                    edit = await client.edit_message_text(sender, edit_id, "📑 درحال کپی...")
                     await client.send_message(sender, msg.text.markdown)
                     await edit.delete()
                     return
-            edit = await client.edit_message_text(sender, edit_id, "Trying to Download.")
+            edit = await client.edit_message_text(sender, edit_id, "⬇️ تلاش برای دانلود...")
             file = await userbot.download_media(
                 msg,
                 progress=progress_for_pyrogram,
                 progress_args=(
                     client,
-                    "**DOWNLOADING:**\n",
+                    "📥 درحال دانلود...\n",
                     edit,
                     time.time()
                 )
             )
-            await edit.edit('Preparing to Upload!')
+            await edit.edit('🗳 آماده آپلود کردن...')
             caption = str(file)
             if msg.caption is not None:
                 caption = msg.caption
@@ -89,7 +89,7 @@ async def get_msg(userbot, client, sender, edit_id, msg_link, i):
                     progress=progress_for_pyrogram,
                     progress_args=(
                         client,
-                        '**UPLOADING:**\n',
+                        '📤در حال آپلود...\n',
                         edit,
                         time.time()
                     )
