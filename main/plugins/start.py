@@ -2,7 +2,7 @@
 
 import os
 from .. import bot as Drone
-from telethon import events, Button
+from telethon import events
 
 from ethon.mystarts import start_srb
     
@@ -42,6 +42,5 @@ async def remt(event):
   
 @Drone.on(events.NewMessage(incoming=True, pattern=f"{S}"))
 async def start(event):
-    text = "🔰 لینک پیام را ارسال کنید تا ربات فایل مورد نظر را از کانال پرایوت دانلود و برای شما ارسال کند\n\n🆔 @King_Network7"
-    await start_srb(event, text)
+    await event.reply("🔰 لینک پیام را ارسال کنید تا ربات فایل مورد نظر را از کانال پرایوت دانلود و برای شما ارسال کند\n\n🆔 @King_Network7")
     
