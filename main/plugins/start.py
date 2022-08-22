@@ -11,8 +11,6 @@ S = '/' + 's' + 't' + 'a' + 'r' + 't'
 @Drone.on(events.callbackquery.CallbackQuery(data="set"))
 async def sett(event):    
     Drone = event.client                    
-    button = await event.get_message()
-    msg = await button.get_reply_message() 
     await event.delete()
     async with Drone.conversation(event.chat_id) as conv: 
         xx = await conv.send_message("🏞 عکس خود را برای تنظیم تامبنیل ارسال کنید 🌄")
