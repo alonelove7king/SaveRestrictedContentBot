@@ -8,8 +8,8 @@ from ethon.mystarts import start_srb
     
 S = '/' + 's' + 't' + 'a' + 'r' + 't'
 
-@Drone.on(events.callbackquery.CallbackQuery(data="set"))
-async def sett(event):    
+@Drone.on(events.NewMessage(incoming=True, pattern=f"{S}"))
+async def settumb(event):    
     Drone = event.client                    
     await event.delete()
     async with Drone.conversation(event.chat_id) as conv: 
@@ -30,8 +30,8 @@ async def sett(event):
         os.rename(path, f'./{event.sender_id}.jpg')
         await t.edit("✅ تامبنیل با موفقیت تنظیم شد ✅")
         
-@Drone.on(events.callbackquery.CallbackQuery(data="rem"))
-async def remt(event):  
+@Drone.on(events.NewMessage(incoming=True, pattern=f"{S}"))
+async def removetumb(event):
     Drone = event.client            
     await event.edit('♻️ درحال انجام ♻️')
     try:
